@@ -14,6 +14,13 @@ module.exports = {
 			{
 				test: /\.scss$/, 
 				use: ['style-loader', 'css-loader', 'sass-loader']
+			},
+			{
+				test: /\.(gif|png|jpe?g|svg)$/i,
+				use: [
+					'file-loader?name=[name].[ext]&outputPath=assets/images/&publicPath=../',
+		            'image-webpack-loader'
+				]
 			}
 		]
 	},
@@ -38,7 +45,7 @@ module.exports = {
 		}),
 		new ExtractTextPlugin({
 			filename: 'app.bundle.css',
-			disable: false,
+			disable: true,
 			allChunks: true
 		}),
 		new webpack.HotModuleReplacementPlugin()

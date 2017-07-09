@@ -6,7 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
 	entry: './src/app.js',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.join(__dirname, '/../dist'),
 		filename: '[name].bundle.js'
 	},
 	module:{
@@ -18,6 +18,13 @@ module.exports = {
 					use: ['css-loader', 'sass-loader'],
 					publicPath: '/dist'
 				})
+			},
+			{
+				test: /\.(gif|png|jpe?g|svg)$/i,
+				use: [
+					'file-loader?name=[name].[ext]&outputPath=assets/images/&publicPath=../',
+		            'image-webpack-loader'
+				]
 			}
 		]
 	},
@@ -35,6 +42,6 @@ module.exports = {
 			disable: false,
 			allChunks: true
 		}),
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
 	]
 }
